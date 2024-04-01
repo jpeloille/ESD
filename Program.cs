@@ -1,8 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Runtime.InteropServices;
+using ESD.Common;
 
-var regA = new Register_16Bits();
+var regA = new SixteenBitsRegister();
 
 regA.LOW = 0xF0;
 regA.HIGH = 0xFF;
@@ -18,15 +19,9 @@ UInt16 offset = 0x0200;
 regA.XTEND += offset;
 Console.WriteLine(regA.XTEND.ToString("X2"));
 
+var flags = new FlagsRegister();
+flags.Register = 0x00;
+Console.WriteLine(flags.Register.ToString("X2"));
 
-
-[StructLayout(LayoutKind.Explicit)]
-public struct Register_16Bits 
-{ 
-    [FieldOffset(1)]public byte HIGH; 
-    [FieldOffset(0)]public byte LOW;
-    [FieldOffset(0)]public UInt16 XTEND; 
-}
-
-
-//bool ooo = foo.original_or_copy();
+flags.C = true;
+Console.WriteLine(flags.Register.ToString("X2"));
